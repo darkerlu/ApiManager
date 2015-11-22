@@ -14,7 +14,7 @@
     <script src="./MinPHP/res/respond.min.js"></script>
     <![endif]-->
 </head>
-<body style="height:100%">
+<body style="height:100%" onload="prettyPrint()">
 <div class="container-fluid" style="background:white;height:100%;">
     <div class="row" style="height:100%;">
         <!--左侧导航start-->
@@ -22,7 +22,7 @@
             <div style="height:50px;font-size:30px;line-height:50px;">
                 <a class="home" style="color:#000000;text-shadow:1px 0px 1px #666;text-decoration: none" href="<?php echo U()?>">
                     <span class="glyphicon glyphicon-random" aria-hidden="true" style="width:40px;"></span>&nbsp;
-        <span style="position: relative;top:-3px;">API Manager <span style="font-size:12px;position:relative;top:-13px;">&nbsp;<?php echo C('version->no')?></span>
+        <span style="position: relative;top:-3px;">接口管理系统 <span style="font-size:12px;position:relative;top:-13px;">&nbsp;<?php echo C('version->no')?></span>
                 </a>
                 </span>
             </div>

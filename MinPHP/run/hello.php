@@ -9,8 +9,5 @@
 &nbsp;&nbsp;&nbsp;&nbsp;是一个在线API文档系统；其致力于快速解决团队内部接口文档的编写、维护、存档，和减少团队协作开发的沟通成本。
         </pre>
     </div>
-    <div style="font-size:12px;position:absolute;bottom:0;right:20px;height:20px;text-align:right;">
-        路人庚 | qq : 309581329 | github : <a target="_blank" href="https://github.com/gongwalker/ApiManager.git">https://github.com/gongwalker/ApiManager.git</a>
-    </div>
 </div>
 <!--欢迎页 end-->

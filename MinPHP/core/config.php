@@ -6,8 +6,8 @@ return array(
         'host' => 'localhost',   //数据库地址
         'dbname' => 'api',   //数据库名
         'user' => 'root',    //帐号
-        'passwd' => '123456',    //密码
-        'linktype' => 'mysqli',    //数据库连接类型 支持mysqli与pdo两种类型
+        'passwd' => '',    //密码
+        'linktype' => 'mysq',    //数据库连接类型 支持mysqli与pdo两种类型
     ),
     //session配置
     'session'=>array(
@@ -21,6 +21,14 @@ return array(
     'version'=>array(
         'no' => 'v1.1',  //版本号
         'time' => '2015-08-19 00:40',   //版本时间
+    ),
+    //参数类型
+    'param_type'=> array(
+        1=>'integer',
+        2=>'string',
+        3=>'array',
+        4=>'float',
+        5=>'bool'
     )
 
 );

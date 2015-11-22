@@ -133,6 +133,8 @@
                         <select class="form-control" name="type">
                             <option value="GET">GET</option>
                             <option value="POST">POST</option>
+                            <option value="PUT">PUT</option>
+                            <option value="DELETE">DELETE</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -140,9 +142,11 @@
                         <table class="table">
                             <thead>
                             <tr>
-                                <th class="col-md-3">参数名</th>
+                                <th class="col-md-2">参数名</th>
+                                <th class="col-md-2">参数类型</th>
                                 <th class="col-md-2">必传</th>
-                                <th class="col-md-2">缺省值</th>
+                                <th class="col-md-2">示例</th>
+                                <th class="col-md-2">默认值</th>
                                 <th class="col-md-4">描述</th>
                                 <th class="col-md-1">
                                     <button type="button" class="btn btn-success" onclick="add()">新增</button>
@@ -155,12 +159,20 @@
                                     <input type="text" class="form-control" name="p[name][]" placeholder="参数名" required="required">
                                 </td>
                                 <td>
-                                    <select class="form-control" name="p[type][]">
-                                        <option value="Y">Y</option>
-                                        <option value="N">N</option>
+                                    <select class="form-control" name="p[data_type][]">
+                                        <?php for($i=1;$i<=count(C('param_type'));$i++){?>
+                                            <option value="<?php echo $i ?>"><?php echo C('param_type')[$i] ?></option>
+                                        <?php } ?>
                                     </select>
                                 </td>
-                                <td><input type="text" class="form-control" name="p[default][]" placeholder="缺省值"></td>
+                                <td>
+                                    <select class="form-control" name="p[type][]">
+                                        <option value="Y">是</option>
+                                        <option value="N">否</option>
+                                    </select>
+                                </td>
+                                <td><input type="text" class="form-control" name="p[example][]" placeholder="示例"></td>
+                                <td><input type="text" class="form-control" name="p[default][]" placeholder="默认值"></td>
                                 <td><textarea name="p[des][]" rows="1" class="form-control" placeholder="描述"></textarea></td>
                                 <td><button type="button" class="btn btn-danger" onclick="del(this)">删除</button></td>
                             </tr>
@@ -168,7 +180,7 @@
                         </table>
                     </div>
                     <div class="form-group">
-                        <h5>返回结果</h5>
+                        <h5>JSON返回数据</h5>
                         <textarea name="re" rows="3" class="form-control" placeholder="返回结果"></textarea>
                     </div>
                     <div class="form-group">
@@ -186,11 +198,11 @@
                 '<td class="form-group has-error" ><input type="text" class="form-control has-error" name="p[name][]" placeholder="参数名" required="required"></td>' +
                 '<td>' +
                 '<select class="form-control" name="p[type][]">' +
-                '<option value="Y">Y</option> <option value="N">N</option>' +
+                '<option value="Y">是</option> <option value="N">否</option>' +
                 '</select >' +
                 '</td>' +
                 '<td>' +
-                '<input type="text" class="form-control" name="p[default][]" placeholder="缺省值"></td>' +
+                '<input type="text" class="form-control" name="p[default][]" placeholder="默认值"></td>' +
                 '<td>' +
                 '<textarea name="p[des][]" rows="1" class="form-control" placeholder="描述"></textarea>' +
                 '</td>' +
@@ -240,9 +252,13 @@
                             <?php
                                 $selected[0] = ($info['type'] == 'GET') ? 'selected' : '';
                                 $selected[1] = ($info['type'] == 'POST') ? 'selected' : '';
+                                $selected[2] = ($info['type'] == 'PUT') ? 'selected' : '';
+                                $selected[3] = ($info['type'] == 'DELETE') ? 'selected' : '';
                             ?>
                             <option value="GET"  <?php echo $selected[0]?>>GET</option>
                             <option value="POST" <?php echo $selected[1]?>>POST</option>
+                            <option value="PUT" <?php echo $selected[2]?>>PUT</option>
+                            <option value="DELETE" <?php echo $selected[3]?>>DELETE</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -250,9 +266,11 @@
                         <table class="table">
                             <thead>
                             <tr>
-                                <th class="col-md-3">参数名</th>
+                                <th class="col-md-2">参数名</th>
+                                <th class="col-md-2">参数类型</th>
                                 <th class="col-md-2">必传</th>
-                                <th class="col-md-2">缺省值</th>
+                                <th class="col-md-2">示例</th>
+                                <th class="col-md-2">默认值</th>
                                 <th class="col-md-4">描述</th>
                                 <th class="col-md-1">
                                     <button type="button" class="btn btn-success" onclick="add()">新增</button>
@@ -268,16 +286,24 @@
                                     <input type="text" class="form-control" name="p[name][]" placeholder="参数名" value="<?php echo $info['parameter']['name'][$i]?>" required="required">
                                 </td>
                                 <td>
+                                    <select class="form-control" name="p[data_type][]">
+                                        <?php for($j=1;$j<=count(C('param_type'));$j++){?>
+                                            <option <?php echo $info['parameter']['data_type'][$i]==$j?'selected':'' ?> value="<?php echo $j ?>"><?php echo C('param_type')[$j] ?></option>
+                                        <?php } ?>
+                                    </select>
+                                </td>
+                                <td>
                                     <?php
                                         $selected[0] = ($info['parameter']['type'][$i] == 'Y') ? 'selected' : '';
                                         $selected[1] = ($info['parameter']['type'][$i] == 'N') ? 'selected' : '';
                                     ?>
                                     <select class="form-control" name="p[type][]">
-                                        <option value="Y" <?php echo $selected[0]?>>Y</option>
-                                        <option value="N" <?php echo $selected[1]?>>N</option>
+                                        <option value="Y" <?php echo $selected[0]?>>是</option>
+                                        <option value="N" <?php echo $selected[1]?>>否</option>
                                     </select>
                                 </td>
-                                <td><input type="text" class="form-control" name="p[default][]" placeholder="缺省值" value="<?php echo $info['parameter']['default'][$i]?>"></td>
+                                <td><input type="text" class="form-control" name="p[example][]" placeholder="默认值" value="<?php echo $info['parameter']['example'][$i]?>"></td>
+                                <td><input type="text" class="form-control" name="p[default][]" placeholder="默认值" value="<?php echo $info['parameter']['default'][$i]?>"></td>
                                 <td><textarea name="p[des][]" rows="1" class="form-control" placeholder="描述"><?php echo $info['parameter']['des'][$i]?></textarea></td>
                                 <td><button type="button" class="btn btn-danger" onclick="del(this)">删除</button></td>
                             </tr>
@@ -287,8 +313,8 @@
                         </table>
                     </div>
                     <div class="form-group">
-                        <h5>返回结果</h5>
-                        <textarea name="re" rows="3" class="form-control" placeholder="返回结果"><?php echo $info['re']?></textarea>
+                        <h5>JSON返回数据</h5>
+                        <textarea  name="re" rows="10" class="form-control" placeholder="返回结果"><?php echo $info['re']?></textarea>
                     </div>
                     <div class="form-group">
                         <h5>备注</h5>
@@ -306,11 +332,11 @@
                     '<input type="text" class="form-control has-error" name="p[name][]" placeholder="参数名" required="required"></td>' +
                 '<td>' +
                     '<select class="form-control" name="p[type][]">' +
-                        '<option value="Y">Y</option> <option value="N">N</option>' +
+                        '<option value="Y">是</option> <option value="N">否</option>' +
                     '</select >' +
                 '</td>' +
                 '<td>' +
-                    '<input type="text" class="form-control" name="p[default][]" placeholder="缺省值">' +
+                    '<input type="text" class="form-control" name="p[default][]" placeholder="默认值">' +
                 '</td>' +
                 '<td>' +
                     '<textarea name="p[des][]" rows="1" class="form-control" placeholder="描述"></textarea>' +
@@ -360,12 +386,14 @@
             <?php } ?>
             <div style="background:#ffffff;padding:20px;">
                 <h5 class="textshadow" >请求参数</h5>
-                <table class="table">
+                <table class="table table-bordered">
                     <thead>
                     <tr>
-                        <th class="col-md-3">参数名</th>
+                        <th class="col-md-2">参数名</th>
+                        <th class="col-md-2">参数类型</th>
                         <th class="col-md-2">必传</th>
-                        <th class="col-md-2">缺省值</th>
+                        <th class="col-md-2">示例</th>
+                        <th class="col-md-2">默认值</th>
                         <th class="col-md-5">描述</th>
                     </tr>
                     </thead>
@@ -377,7 +405,9 @@
                     <?php for( $i=0; $i<$pnum; $i++ ) {?>
                     <tr>
                         <td><?php echo $parameter['name'][$i]?></td>
-                        <td><?php if($parameter['type'][$i]=='Y'){echo '<span style="color:red">Y<span>';}else{echo '<span style="color:green">N<span>';}?></td>
+                        <td><?php echo C('param_type')[$parameter['data_type'][$i]] ?></td>
+                        <td><?php if($parameter['type'][$i]=='Y'){echo '<span style="color:red">是<span>';}else{echo '<span style="color:green">否<span>';}?></td>
+                        <td><?php echo $parameter['example'][$i]?></td>
                         <td><?php echo $parameter['default'][$i]?></td>
                         <td><?php echo $parameter['des'][$i]?></td>
                     </tr>
@@ -388,7 +418,7 @@
             </div>
             <?php if(!empty($v['re'])){ ?>
             <div style="background:#ffffff;padding:20px;">
-                <h5 class="textshadow" >返回值</h5>
+                <h5 class="textshadow" >JSON返回数据</h5>
                 <pre><?php echo $v['re']?></pre>
             </div>
             <?php } ?>
