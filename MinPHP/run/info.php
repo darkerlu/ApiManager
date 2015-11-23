@@ -1,4 +1,12 @@
 <?php defined('API') or exit();?>
+<!-- js数据init -->
+<script>
+    var param_type=<?php echo  json_encode(C('param_type'))?>;
+    var html_str='';
+    for (var sProp in param_type) {
+        html_str+='<option value="'+sProp+'">'+param_type[sProp]+'</option>';
+    } 
+</script>
 <!--接口详情列表与接口管理start-->
 <?php
    $_VAL = I($_POST);
@@ -196,16 +204,24 @@
         function add(){
             var $html ='<tr>' +
                 '<td class="form-group has-error" ><input type="text" class="form-control has-error" name="p[name][]" placeholder="参数名" required="required"></td>' +
+                "<td>"+
+                    "<select class='form-control' name='p[data_type][]'>"+
+                    html_str+
+                    "</select></td>"+
                 '<td>' +
                 '<select class="form-control" name="p[type][]">' +
                 '<option value="Y">是</option> <option value="N">否</option>' +
                 '</select >' +
                 '</td>' +
+
                 '<td>' +
                 '<input type="text" class="form-control" name="p[default][]" placeholder="默认值"></td>' +
                 '<td>' +
                 '<textarea name="p[des][]" rows="1" class="form-control" placeholder="描述"></textarea>' +
                 '</td>' +
+                '<td>'+
+                    '<input type="text" class="form-control" name="p[example][]" placeholder="示例" value="">'+
+                '</td>'+
                 '<td>' +
                 '<button type="button" class="btn btn-danger" onclick="del(this)">删除</button>' +
                 '</td>' +
@@ -302,7 +318,7 @@
                                         <option value="N" <?php echo $selected[1]?>>否</option>
                                     </select>
                                 </td>
-                                <td><input type="text" class="form-control" name="p[example][]" placeholder="默认值" value="<?php echo $info['parameter']['example'][$i]?>"></td>
+                                <td><input type="text" class="form-control" name="p[example][]" placeholder="示例" value="<?php echo $info['parameter']['example'][$i]?>"></td>
                                 <td><input type="text" class="form-control" name="p[default][]" placeholder="默认值" value="<?php echo $info['parameter']['default'][$i]?>"></td>
                                 <td><textarea name="p[des][]" rows="1" class="form-control" placeholder="描述"><?php echo $info['parameter']['des'][$i]?></textarea></td>
                                 <td><button type="button" class="btn btn-danger" onclick="del(this)">删除</button></td>
@@ -330,11 +346,18 @@
             var $html ='<tr>' +
                 '<td class="form-group has-error" >' +
                     '<input type="text" class="form-control has-error" name="p[name][]" placeholder="参数名" required="required"></td>' +
+                "<td>"+
+                    "<select class='form-control' name='p[data_type][]'>"+
+                    html_str+
+                    "</select></td>"+
                 '<td>' +
                     '<select class="form-control" name="p[type][]">' +
                         '<option value="Y">是</option> <option value="N">否</option>' +
                     '</select >' +
                 '</td>' +
+                '<td>'+
+                    '<input type="text" class="form-control" name="p[example][]" placeholder="示例" value="">'+
+                '</td>'+
                 '<td>' +
                     '<input type="text" class="form-control" name="p[default][]" placeholder="默认值">' +
                 '</td>' +
