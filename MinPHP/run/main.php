@@ -13,6 +13,7 @@
     <script src="./MinPHP/res/html5shiv.min.js"></script>
     <script src="./MinPHP/res/respond.min.js"></script>
     <![endif]-->
+    <link href="http://cdn.bootcss.com/highlight.js/8.0/styles/monokai_sublime.min.css" rel="stylesheet">
 </head>
 <body style="height:100%" onload="prettyPrint()">
 <div class="container-fluid" style="background:white;height:100%;">
@@ -67,5 +68,7 @@
 <script src="./MinPHP/res/jquery.min.js"></script>
 <script src="./MinPHP/res/jquery.cookie.js"></script>
 <script src="./MinPHP/res/bootstrap-3.3.4-dist/js/bootstrap.min.js"></script>
+<script src="http://cdn.bootcss.com/highlight.js/8.0/highlight.min.js"></script>
+<script >hljs.initHighlightingOnLoad();</script> 
 </body>
 </html>

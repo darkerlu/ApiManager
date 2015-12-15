@@ -442,7 +442,7 @@
             <?php if(!empty($v['re'])){ ?>
             <div style="background:#ffffff;padding:20px;">
                 <h5 class="textshadow" >JSON返回数据</h5>
-                <pre><?php echo $v['re']?></pre>
+                <pre><code  class="json hljs"><?php echo $v['re']?></code></pre>
             </div>
             <?php } ?>
             <?php if(!empty($v['memo'])){ ?>
